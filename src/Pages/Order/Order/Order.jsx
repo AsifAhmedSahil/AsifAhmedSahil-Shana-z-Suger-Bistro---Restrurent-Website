@@ -8,13 +8,18 @@ import useMenu from "../../../hooks/useMenu";
 
 import OrderTab from "../OrderTab/OrderTab";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Order = () => {
-  const [tabIndex, setTabIndex] = useState(0);
-
+  const categories = ['dessert','salad','soup','pizza','drinks'];
   const {category} = useParams();
+  const initialIndex = categories.indexOf(category)
 
-  console.log(category)
+  const [tabIndex, setTabIndex] = useState(initialIndex);
+
+  
+
+  // console.log(category)
 
   const [menu] = useMenu();
   const desserts = menu.filter(item => item.category === 'dessert')
@@ -24,6 +29,9 @@ const Order = () => {
   const drinks = menu.filter(item => item.category === 'drinks')
   return (
     <div>
+      <Helmet>
+        <title>Bistro | Order Food</title>
+    </Helmet>
       <CoverMenu img={orderImg} title="Order Food"></CoverMenu>
 
       <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
